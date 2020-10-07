@@ -7,9 +7,6 @@ admin.initializeApp();
 
 const client = new vision.ImageAnnotatorClient();
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
 exports.processImage = functions.storage.object().onFinalize(async (object) => {
   const bucket = object.bucket;
   const contentType = object.contentType;
