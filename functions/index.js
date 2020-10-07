@@ -27,15 +27,15 @@ exports.onFileChange = functions.storage.object().onFinalize(async (object) => {
 
   if (fileName.startsWith(prefix)) {
     // Get the Signed URLs for the thumbnail and original image.
-    const config = {
-      action: 'read',
-      expires: '03-01-2500',
-    };
+    // const config = {
+    //   action: 'read',
+    //   expires: '03-01-2500',
+    // };
 
-    const renamedFile = destBucket.file(fileName);
-    console.log('renamedFile:', renamedFile);
+    // const renamedFile = destBucket.file(fileName);
 
-    await renamedFile.getSignedUrl(config);
+    // const responses = await renamedFile.getSignedUrl(config);
+
 
     return console.log('skip this file');
   }
@@ -58,15 +58,11 @@ exports.onFileChange = functions.storage.object().onFinalize(async (object) => {
   await destBucket.upload(tmpFilePath, {
     destination: prefix + fileName,
     metadata: metadata,
-    public: true,
     predefinedAcl: 'publicRead'
   });
 
   // remove the temporary file
   fs.unlinkSync(tmpFilePath);
-
-
-
 
   return console.log('done');
 });
